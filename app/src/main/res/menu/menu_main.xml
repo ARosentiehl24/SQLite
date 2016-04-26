@@ -1,10 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.unimagdalena.edu.co.sqlite.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_search"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Buscar"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/action_show_all"
+        android:orderInCategory="100"
+        android:title="Mostrar todos"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_report"
+        android:orderInCategory="100"
+        android:title="Reportes"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:id="@+id/action_on_sale"
+                android:orderInCategory="100"
+                android:title="En descuento"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_kind_of_food"
+                android:orderInCategory="100"
+                android:title="Tipo de comida"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:title="Acerca de"
         app:showAsAction="never" />
 </menu>

@@ -2,7 +2,9 @@ package com.unimagdalena.edu.co.sqlite;
 
 import com.afollestad.inquiry.annotations.Column;
 
-public class Plato {
+import java.io.Serializable;
+
+public class Plato implements Serializable {
 
     @Column(name = "_id", primaryKey = true, notNull = true, autoIncrement = true)
     private long id;

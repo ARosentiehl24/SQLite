@@ -3,15 +3,25 @@ package com.unimagdalena.edu.co.sqlite;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.inquiry.Inquiry;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
 
     @OnClick({R.id.fab})
     public void OnClick(View view) {
@@ -35,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Inquiry.init(this, Constantes.NOMBRE_BASE_DE_DATOS, 1);
+
+        Adaptador adaptador = new Adaptador(this, obtenerPlatos());
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Inquiry.deinit();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -54,5 +79,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public ArrayList<Plato> obtenerPlatos() {
+        ArrayList<Plato> platos = new ArrayList<>();
+
+        Plato[] platosDB = Inquiry.get().selectFrom(Constantes.TABLA_PLATO, Plato.class).sort("nombre ASC").all();
+
+        if (platosDB != null) {
+            Collections.addAll(platos, platosDB);
+        }
+
+        return platos;
     }
 }
